@@ -1,6 +1,6 @@
 # SOA-Ex-1-APIs
 
-How to run these files
+How to run Node.Js files
 
 step 1:
 
@@ -27,3 +27,23 @@ step 5:
 Run the app
   
   1. node index.js
+
+How to run PHP files
+
+step 1:
+
+Download the folder with php in the name
+
+step 2:
+
+Install xampp
+
+step 3:
+
+Place the folders in xampp/htdocs
+
+step 4:
+
+Run the app by giving "localhost/{{path of the folder}}/index.php" in the web browser
+
+path of the folder from htdocs
