@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function myfunction()
+        {
+            var captcha='';
+            var captchastr ;
+            var len =0;
+            var count = 0;
+            var set1 = document.getElementById('len').value;
+            //var set2 = document.getElementById('set2').value;
+            var req = new XMLHttpRequest();
+            req.open('POST', '/captcha');
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.send(JSON.stringify({ set1 : set1 }));
+            req.addEventListener('load', () => {
+                console.log(req.responseText);
+                captchastr = req.responseText;
+                len = captchastr.length;
+                if(len!=0){
+                    for(var i=0;i<len;i++){
+                    if(captchastr[i]!='[' && captchastr[i]!=']' && captchastr[i]!='"' && captchastr[i]!='"' && captchastr[i]!=',' ){
+                        captcha+=captchastr[i];
+
+                    }
+                }
+                var canv = document.createElement("canvas");
+            canv.id = "captcha";
+            canv.width = 100;
+            canv.height = 50;
+            var ctx = canv.getContext("2d");
+            ctx.font = "25px Georgia";
+            ctx.strokeText(captcha, 0, 30);
+            document.getElementById("captcha").appendChild(canv);
+                }
+                //document.getElementById("result").innerHTML = req.responseText;
+            });
+            
+            req.addEventListener('error', () => {
+                console.log('Shit, something bad happened.');
+                console.log(e);
+            });
+            
+        }
+        function draw(captchastr){
+             // adds the canvas to the body element
+        }
+    </script>
+    <style>
+        canvas{
+        pointer-events:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+          <h1 class="text-center">Captcha</h1>
+            <div class="row mb-3">
+              <div class="col">
+                <label for="">Length of Captcha</label>
+                <input type="textarea" class="form-control" id="len" required name="email" >
+              </div>
+              <div class="col mt-4 pt-2">
+                <button type="button" class="btn btn-primary btn-block" onclick = "myfunction()">CAPTCHA</button>
+              </div>
+            </div>
+            <h1>Result</h1>
+            <pre id="captcha" class="mt-2">
+
+            </pre>
+        </form>
+    </div> 
+</body>
+</html>

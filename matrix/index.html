@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function myfunction()
+        {
+            var set1 = new Array(3);
+            var count = 1;
+            for(var i=0;i<3;i++){
+              set1[i] = [];
+            }
+            for(var i=0;i<3;i++){
+              for(var j=0;j<3;j++){
+                set1[i][j] = count++;
+              }
+            }
+            var req = new XMLHttpRequest();
+            req.open('POST', '/matrixoperatioins');
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.send(JSON.stringify({ set1 : set1 }));
+            req.addEventListener('load', () => {
+                console.log(req.responseText);
+                document.getElementById("result").innerHTML = req.responseText;
+            });
+
+            req.addEventListener('error', () => {
+                console.log('Shit, something bad happened.');
+                console.log(e);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form>
+          <h1 class="text-center">Matrix</h1>
+            <div class="row mb-3">
+              <div class="col mt-4 pt-2">
+                <button type="button" class="btn btn-primary btn-block" onclick = "myfunction()">Matrix functions</button>
+              </div>
+            </div>
+            <h1>Result</h1>
+            <p id="result" class="mt-2" style="font-size: 20px;">
+
+            </p>
+        </form>
+    </div> 
+</body>
+</html>
